@@ -1,5 +1,6 @@
 package br.bancoeveris.app.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -26,34 +27,44 @@ public class ContaController extends BaseController {
 
 	// POST - CRIAR
 	@PostMapping
-    public ResponseEntity inserir(@RequestBody ContaSpec contaSpec) {
+	public ResponseEntity inserir(@RequestBody ContaSpec contaSpec) {
 		try {
 			BaseResponse response = _service.inserir(contaSpec);
-			return ResponseEntity.status(response.StatusCode).body(response);			
+			return ResponseEntity.status(response.StatusCode).body(response);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}
-    }
-	
-	
-	
-	
-	//------------------------------------------------------------------------------
-	
-	// GET - OBTER UM HASH EM TESTE
-	@GetMapping(path = "/{id}")
-    public ResponseEntity obter(@PathVariable Long id) {		
+	}
+
+	// GET - OBTER POR UM HASH
+	@GetMapping(path = "/{hash}")
+	public ResponseEntity listar(@PathVariable String hash) {
+		List<Conta> contas = _service.listar(hash);
+		return ResponseEntity.status(HttpStatus.OK).body(contas);
+
+	}
+
+	// GET - OBTER TUDO
+	@GetMapping
+	public ResponseEntity listar() {
 		try {
-			Conta response = _service.obter(id);
-			return ResponseEntity.status(response.StatusCode).body(response);	
+			ContaList contas = _service.listar();
+			return ResponseEntity.status(HttpStatus.OK).body(contas);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
-		}   	
-    }
-	
-	//------------------------------------------------------------------------------
+		}
+	}
 	
 	
+	// ------------------------------------------------------------------------------
+	//CAMPO DE TESTE
+	
+	// PUT - ATUALIZAR POR HASH
+	
+	
+	//CAMPO DE TESTE
+	// ------------------------------------------------------------------------------
+
 	
 	
 	
@@ -62,10 +73,7 @@ public class ContaController extends BaseController {
 	
 	
 	
-	
-	
-	
-//	// GET - OBTER UM POR ID
+	// // GET - OBTER UM POR ID
 //	@GetMapping(path = "/{id}")
 //    public ResponseEntity obter(@PathVariable Long id) {		
 //		try {
@@ -76,20 +84,9 @@ public class ContaController extends BaseController {
 //		}   	
 //    }
 //	
-//	// GET - OBTER TUDO
-//		@GetMapping
-//	    public ResponseEntity listar() {		
-//			try {
-//				ContaList contas = _service.listar();  		
-//		    	return ResponseEntity.status(HttpStatus.OK).body(contas);			
-//			} catch (Exception e) {
-//				return ResponseEntity.status(errorBase.StatusCode).body(errorBase);			
-//			}		
-//	    }
 
 	// PUT - ATUALIZAR
 
-
 	// DELETE - DELETAR
-	
+
 }

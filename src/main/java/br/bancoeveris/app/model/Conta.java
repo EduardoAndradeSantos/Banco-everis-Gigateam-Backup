@@ -11,28 +11,31 @@ public class Conta extends BaseResponse {
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private Long Id;
-	private String Nome;
+	private Long id;
+	
 	@Column(unique = true)
-	private String Hash;
+	private String hash;
+	private String nome;
+	
+	
 	
 	public Long getId() {
-		return Id;
+		return id;
 	}
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 	public String getHash() {
-		return Hash;
+		return hash;
 	}
 	public void setHash(String hash) {
-		Hash = hash;
+		this.hash = hash;
 	}
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 	public void setNome(String nome) {
-		Nome = nome;
+		this.nome = nome;
 	}
-
+	
 }

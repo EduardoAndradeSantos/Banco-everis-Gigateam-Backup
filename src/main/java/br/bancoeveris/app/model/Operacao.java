@@ -12,56 +12,59 @@ import javax.persistence.GenerationType;
 public class Operacao extends BaseResponse {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
-	private String Tipo;
-	private double Valor;
+	private Long id;
+	private String tipo;
+	private double valor;
 
 	@ManyToOne
 	@JoinColumn(name = "IdContaOrigem")
-	private Conta ContaO;
+	private Conta contaO;
 
 	@ManyToOne
 	@JoinColumn(name = "IdContaDestino")
-	private Conta ContaD;
+	private Conta contaD;
 
+	
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getTipo() {
-		return Tipo;
+		return tipo;
 	}
 
 	public void setTipo(String tipo) {
-		Tipo = tipo;
+		this.tipo = tipo;
 	}
 
 	public double getValor() {
-		return Valor;
+		return valor;
 	}
 
 	public void setValor(double valor) {
-		Valor = valor;
+		this.valor = valor;
 	}
 
 	public Conta getContaO() {
-		return ContaO;
+		return contaO;
 	}
 
 	public void setContaO(Conta contaO) {
-		ContaO = contaO;
+		this.contaO = contaO;
 	}
 
 	public Conta getContaD() {
-		return ContaD;
+		return contaD;
 	}
 
 	public void setContaD(Conta contaD) {
-		ContaD = contaD;
+		this.contaD = contaD;
 	}
+
+	
 
 }
