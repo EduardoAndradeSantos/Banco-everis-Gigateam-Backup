@@ -39,17 +39,21 @@ public class ContaController extends BaseController {
 	// GET - OBTER POR UM HASH
 	@GetMapping(path = "/{hash}")
 	public ResponseEntity listar(@PathVariable String hash) {
-		List<Conta> contas = _service.listar(hash);
-		return ResponseEntity.status(HttpStatus.OK).body(contas);
-
+		try {
+			ContaList contas = _service.listar(hash);
+			return ResponseEntity.status(contas.StatusCode).body(contas);
+		} catch (Exception e) {
+			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
+		}
 	}
+
 
 	// GET - OBTER TUDO
 	@GetMapping
 	public ResponseEntity listar() {
 		try {
 			ContaList contas = _service.listar();
-			return ResponseEntity.status(HttpStatus.OK).body(contas);
+			return ResponseEntity.status(contas.StatusCode).body(contas);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}

@@ -46,9 +46,21 @@ public class ContaService {
 	}
 
 	// GET - OBTER POR UM POR HASH
-	public List<Conta> listar(String hash){
+	public ContaList listar(String hash){
 		List<Conta> lista = _repository.findByHash(hash);
-		return lista;
+		
+		ContaList response = new ContaList();
+				
+		if (lista.isEmpty()) { //checa se lista é vazia
+			response.StatusCode = 400;
+			response.Message = "Hash code não encontrado.";
+			return response;
+		}
+				
+		response.setContas(lista);
+		response.StatusCode = 200;
+		response.Message = "Hash obtido com sucesso.";
+		return response;
 	}
 	
 	// GET - OBTER TUDO

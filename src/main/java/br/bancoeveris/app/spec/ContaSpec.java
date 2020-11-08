@@ -2,21 +2,30 @@ package br.bancoeveris.app.spec;
 
 public class ContaSpec {
 	
-	private String Hash;
-	private String Nome;
+	private String hash;
+	private String nome;
+	private double saldo;
 	
 	
 	public String getHash() {
-		return Hash;
+		return hash;
 	}
 	public void setHash(String hash) {
-		Hash = hash;
+		this.hash = hash;
 	}
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 	public void setNome(String nome) {
-		Nome = nome;
+		this.nome = nome;
 	}
+	public double getSaldo() {
+		return saldo;
+	}
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+	
+	
 	
 }
