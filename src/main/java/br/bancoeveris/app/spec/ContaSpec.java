@@ -4,8 +4,6 @@ public class ContaSpec {
 	
 	private String hash;
 	private String nome;
-	private double saldo;
-	
 	
 	public String getHash() {
 		return hash;
@@ -19,13 +17,5 @@ public class ContaSpec {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public double getSaldo() {
-		return saldo;
-	}
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
-	}
-	
-	
-	
+
 }
