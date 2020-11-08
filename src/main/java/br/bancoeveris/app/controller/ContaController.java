@@ -42,7 +42,6 @@ public class ContaController extends BaseController {
 		}
 	}
 
-
 	// GET - OBTER TUDO
 	@GetMapping
 	public ResponseEntity listar() {
@@ -64,25 +63,27 @@ public class ContaController extends BaseController {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}
 	}
+
 	// DELETE - DELETAR
 	@DeleteMapping(path = "/{hash}")
 	public ResponseEntity deletar(@PathVariable String hash) {
 		try {
 			BaseResponse response = _service.deletar(hash);
-			return ResponseEntity.status(response.StatusCode).body(response.Message); 
+			return ResponseEntity.status(response.StatusCode).body(response.Message);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}
 	}
-	//PEGAR SALDO
+
+	// GET - PEGAR SALDO
 	@GetMapping(path = "/saldo/{hash}")
 	public ResponseEntity Saldo(@PathVariable String hash) {
 		try {
 			BaseResponse response = _service.Saldo(hash);
-			return ResponseEntity.status(response.StatusCode).body(response.Message); 
+			return ResponseEntity.status(response.StatusCode).body(response.Message);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}
 	}
-	
+
 }

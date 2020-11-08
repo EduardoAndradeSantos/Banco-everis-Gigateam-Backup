@@ -1,11 +1,9 @@
 package br.bancoeveris.app.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import br.bancoeveris.app.model.BaseResponse;
-import br.bancoeveris.app.model.Operacao;
 import br.bancoeveris.app.service.OperacaoService;
 import br.bancoeveris.app.spec.OperacaoSpec;
 
@@ -21,6 +19,7 @@ public class OperacaoController extends BaseController {
 		_service = service;
 	}
 	
+	// POST - INSERIR
 	@PostMapping
 	public ResponseEntity inserir(@RequestBody OperacaoSpec operacaoSpec) {
 		try {
