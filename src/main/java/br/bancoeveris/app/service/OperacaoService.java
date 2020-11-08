@@ -71,7 +71,6 @@ public class OperacaoService {
 				break;
 			}
 		}
-
 		return saldo;
 	}
 
@@ -92,5 +91,4 @@ public class OperacaoService {
 		base.StatusCode = 200;
 		return base;
 	}
-
 }

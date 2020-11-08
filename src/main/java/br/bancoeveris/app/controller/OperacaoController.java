@@ -18,7 +18,7 @@ public class OperacaoController extends BaseController {
 	public OperacaoController(OperacaoService service) {
 		_service = service;
 	}
-	
+
 	// POST - INSERIR
 	@PostMapping
 	public ResponseEntity inserir(@RequestBody OperacaoSpec operacaoSpec) {
@@ -29,5 +29,4 @@ public class OperacaoController extends BaseController {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}
 	}
-	
 }

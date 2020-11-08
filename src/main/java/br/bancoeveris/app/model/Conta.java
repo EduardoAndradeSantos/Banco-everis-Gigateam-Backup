@@ -1,6 +1,7 @@
 package br.bancoeveris.app.model;
 
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,8 @@ public class Conta extends BaseResponse {
 	private String hash;
 	private String nome;
 	
+	@Transient
+	private double saldo;
 	
 	public Long getId() {
 		return id;
@@ -36,5 +39,12 @@ public class Conta extends BaseResponse {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	public double getSaldo() {
+		return saldo;
+	}
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+	
 	
 }

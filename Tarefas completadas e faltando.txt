@@ -1,0 +1,31 @@
+-Criar contas
+	-O hash não pode ser vazio, se não retorna erro 400.
+	-O nome não pode ser vazio, se não retorna erro 400.
+	-O hash não pode ser repetido, se não retorna erro 500.
+
+-Exibir todas as contas criadas
+	-Ao executar o Get, todas as contas aparecem.
+
+-Exibir uma conta por hash
+	-Ser o hash digitado existe, retorna a conta.
+	-Se o hash não existe retorna erro 400 "Hash code não encontrado."
+
+-Atualizar uma conta por um hash
+	-Se todos os campos atendem os requisitos, a conta é atualizada.
+	-É obrigatório digitar o hash do banco que será atualizado.
+	-Se o hash do banco não existir, ocorre erro 500 "erro inesperado".
+	-Se novo nome não for preenchido retorna erro 400.
+	-Se novo hash não for preenchido retorna erro 400.
+
+-Deletar conta por hash
+	-Se o hash existir ele deleta conta.
+	-É obrigatório digitar o hash. campo não pode ser vazio.
+	-Se o hash não existir, retorna erro 500 "erro inesperado".
+
+-Operações
+	-Exibe saldo ao digitar o Hash do cliente
+
+-Faltou:
+	-Transferencia de saldo por hash (está por id)
+	-Deposito de saldo por hash (está por id)
+	-Saque de saldo por hash (está por id)

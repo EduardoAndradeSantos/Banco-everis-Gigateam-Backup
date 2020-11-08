@@ -126,8 +126,8 @@ public class ContaService {
 		return response;
 	}
 
-	//-----------------------------------------------------------------------------------
-	
+	// -----------------------------------------------------------------------------------
+
 	// SALDO
 	public Conta Saldo(String hash) {
 
@@ -140,10 +140,11 @@ public class ContaService {
 			response.Message = "Conta não encontrada!!";
 			return response;
 		}
-		Double Saldo = _operacaoService.Saldo(lista.get(0).getId());
-		response.Message = "Saldo de :" + Saldo + "R$";
+		double saldo = _operacaoService.Saldo(lista.get(0).getId());
+		response.setSaldo(saldo);
+		response.setNome(lista.get(0).getNome());
+		response.setHash(lista.get(0).getHash());
 		response.StatusCode = 200;
 		return response;
 	}
-
 }

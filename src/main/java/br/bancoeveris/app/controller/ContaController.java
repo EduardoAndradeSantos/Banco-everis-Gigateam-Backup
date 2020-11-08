@@ -69,7 +69,7 @@ public class ContaController extends BaseController {
 	public ResponseEntity deletar(@PathVariable String hash) {
 		try {
 			BaseResponse response = _service.deletar(hash);
-			return ResponseEntity.status(response.StatusCode).body(response.Message);
+			return ResponseEntity.status(response.StatusCode).body(response);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}
@@ -80,10 +80,9 @@ public class ContaController extends BaseController {
 	public ResponseEntity Saldo(@PathVariable String hash) {
 		try {
 			BaseResponse response = _service.Saldo(hash);
-			return ResponseEntity.status(response.StatusCode).body(response.Message);
+			return ResponseEntity.status(response.StatusCode).body(response);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}
 	}
-
 }
