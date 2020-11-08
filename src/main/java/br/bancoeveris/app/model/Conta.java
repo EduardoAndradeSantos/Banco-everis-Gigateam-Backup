@@ -16,9 +16,6 @@ public class Conta extends BaseResponse {
 	@Column(unique = true)
 	private String hash;
 	private String nome;
-	private double saldo;
-	
-	
 	
 	
 	public Long getId() {
@@ -39,12 +36,5 @@ public class Conta extends BaseResponse {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public double getSaldo() {
-		return saldo;
-	}
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
-	}
-	
 	
 }

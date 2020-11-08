@@ -1,13 +1,8 @@
 package br.bancoeveris.app.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.bancoeveris.app.model.Conta;
 import br.bancoeveris.app.service.ContaService;
 import br.bancoeveris.app.model.BaseResponse;
 import br.bancoeveris.app.spec.ContaSpec;
@@ -58,39 +53,36 @@ public class ContaController extends BaseController {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}
 	}
-	
-	
-	// ------------------------------------------------------------------------------
-	//CAMPO DE TESTE
-	
-	// PUT - ATUALIZAR POR HASH
-	
-	
-	//CAMPO DE TESTE
-	// ------------------------------------------------------------------------------
-
-	
-	
-	
-	
-	
-	
-	
-	
-	// // GET - OBTER UM POR ID
-//	@GetMapping(path = "/{id}")
-//    public ResponseEntity obter(@PathVariable Long id) {		
-//		try {
-//			Conta response = _service.obter(id);
-//			return ResponseEntity.status(response.StatusCode).body(response);	
-//		} catch (Exception e) {
-//			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
-//		}   	
-//    }
-//	
 
 	// PUT - ATUALIZAR
-
+	@PutMapping(path = "/{hash}")
+	public ResponseEntity atualizar(@RequestBody ContaSpec contaSpec, @PathVariable String hash) {
+		try {
+			BaseResponse response = _service.atualizar(hash, contaSpec);
+			return ResponseEntity.status(response.StatusCode).body(response);
+		} catch (Exception e) {
+			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
+		}
+	}
 	// DELETE - DELETAR
-
+	@DeleteMapping(path = "/{hash}")
+	public ResponseEntity deletar(@PathVariable String hash) {
+		try {
+			BaseResponse response = _service.deletar(hash);
+			return ResponseEntity.status(response.StatusCode).body(response.Message); 
+		} catch (Exception e) {
+			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
+		}
+	}
+	//PEGAR SALDO
+	@GetMapping(path = "/saldo/{hash}")
+	public ResponseEntity Saldo(@PathVariable String hash) {
+		try {
+			BaseResponse response = _service.Saldo(hash);
+			return ResponseEntity.status(response.StatusCode).body(response.Message); 
+		} catch (Exception e) {
+			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
+		}
+	}
+	
 }

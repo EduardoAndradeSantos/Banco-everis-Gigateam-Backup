@@ -14,17 +14,16 @@ public class Operacao extends BaseResponse {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String tipo;
-	private double valor;
+	private Double valor;
 
 	@ManyToOne
-	@JoinColumn(name = "IdContaOrigem")
-	private Conta contaO;
+	@JoinColumn(name = "ContaOrigemId")
+	private Conta contaOrigem;
 
 	@ManyToOne
-	@JoinColumn(name = "IdContaDestino")
-	private Conta contaD;
+	@JoinColumn(name = "ContaDestinoId")
+	private Conta contaDestino;
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -41,30 +40,32 @@ public class Operacao extends BaseResponse {
 		this.tipo = tipo;
 	}
 
-	public double getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 
-	public Conta getContaO() {
-		return contaO;
+	public Conta getContaOrigem() {
+		return contaOrigem;
 	}
 
-	public void setContaO(Conta contaO) {
-		this.contaO = contaO;
+	public void setContaOrigem(Conta contaOrigem) {
+		this.contaOrigem = contaOrigem;
 	}
 
-	public Conta getContaD() {
-		return contaD;
+	public Conta getContaDestino() {
+		return contaDestino;
 	}
 
-	public void setContaD(Conta contaD) {
-		this.contaD = contaD;
+	public void setContaDestino(Conta contaDestino) {
+		this.contaDestino = contaDestino;
 	}
 
+	
+	
 	
 
 }
