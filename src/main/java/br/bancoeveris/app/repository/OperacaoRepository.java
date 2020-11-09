@@ -10,7 +10,8 @@ import br.bancoeveris.app.model.Operacao;
 
 @Repository
 public interface OperacaoRepository extends JpaRepository<Operacao, Long> {
-	
+
 	List<Operacao> findByContaDestino(Conta contaDestino);
+
 	List<Operacao> findByContaOrigem(Conta contaOrigem);
 }

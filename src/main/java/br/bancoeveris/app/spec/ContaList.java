@@ -7,16 +7,16 @@ import java.util.List;
 import br.bancoeveris.app.model.*;
 
 public class ContaList extends BaseResponse {
-	
-	//PROPRIEDADES
+
+	// PROPRIEDADES
 	private List<Conta> Contas;
-	
-	//CONSTRUTOR
-	public List<Conta> getContas(){
+
+	// CONSTRUTOR
+	public List<Conta> getContas() {
 		return Contas;
 	}
-	
-	//METODO
+
+	// METODO
 	public void setContas(List<Conta> contas) {
 		Contas = contas;
 	}
