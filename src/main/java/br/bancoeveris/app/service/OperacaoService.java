@@ -10,12 +10,13 @@ import br.bancoeveris.app.model.Conta;
 import br.bancoeveris.app.model.Operacao;
 import br.bancoeveris.app.repository.ContaRepository;
 import br.bancoeveris.app.repository.OperacaoRepository;
-import br.bancoeveris.app.spec.OperacaoSpec;
-import br.bancoeveris.app.spec.TransferenciaSpec;
+import br.bancoeveris.app.request.OperacaoRequest;
+import br.bancoeveris.app.request.TransferenciaRequest;
 
 @Service
 public class OperacaoService {
-
+	
+	// PROPRIEDADES
 	final OperacaoRepository _repository;
 	final ContaRepository _contaRepository;
 
@@ -25,7 +26,7 @@ public class OperacaoService {
 		_contaRepository = contaRepository;
 	}
 
-	// SALDO
+	// CALCULA O SALDO AO DAR GET CONTA
 	public double Saldo(Long contaId) {
 
 		double saldo = 0;
@@ -74,22 +75,22 @@ public class OperacaoService {
 	}
 
 	// OPERACAO SAQUE E DEPOSITO
-	public BaseResponse criar(OperacaoSpec operacaoSpec) {
+	public BaseResponse criar(OperacaoRequest operacaoRequest) {
 
 		BaseResponse base = new BaseResponse();
 		Operacao operacao = new Operacao();
 
-		List<Conta> lista = _contaRepository.findByHash(operacaoSpec.getHash());
+		List<Conta> lista = _contaRepository.findByHash(operacaoRequest.getHash());
 		if (lista.size() == 0) {
 			base.StatusCode = 404;
 			base.Message = "Conta não encontrada";
 			return base;
 		}
 
-		operacao.setTipo(operacaoSpec.getTipo());
-		operacao.setValor(operacaoSpec.getValor());
+		operacao.setTipo(operacaoRequest.getTipo());
+		operacao.setValor(operacaoRequest.getValor());
 
-		switch (operacaoSpec.getTipo()) {
+		switch (operacaoRequest.getTipo()) {
 		case "D":
 			operacao.setContaDestino(lista.get(0));
 			break;
@@ -105,13 +106,13 @@ public class OperacaoService {
 	}
 
 	// OPERACAO TRANSFERENCIA
-	public BaseResponse transferencia(TransferenciaSpec transferenciaSpec) {
+	public BaseResponse transferencia(TransferenciaRequest transferenciaRequest) {
 
 		BaseResponse base = new BaseResponse();
 		Operacao operacao = new Operacao();
 
-		List<Conta> origem = _contaRepository.findByHash(transferenciaSpec.getHashOrigem());
-		List<Conta> destino = _contaRepository.findByHash(transferenciaSpec.getHashDestino());
+		List<Conta> origem = _contaRepository.findByHash(transferenciaRequest.getHashOrigem());
+		List<Conta> destino = _contaRepository.findByHash(transferenciaRequest.getHashDestino());
 		
 		if (origem.size() == 0) {
 			base.StatusCode = 404;
@@ -127,7 +128,7 @@ public class OperacaoService {
 		operacao.setTipo("T");
 		operacao.setContaOrigem(origem.get(0));
 		operacao.setContaDestino(destino.get(0));
-		operacao.setValor(transferenciaSpec.getValor());
+		operacao.setValor(transferenciaRequest.getValor());
 
 		_repository.save(operacao);
 		base.Message = "Operação Realizada";

@@ -1,13 +1,16 @@
 package br.bancoeveris.app.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
 import br.bancoeveris.app.model.Conta;
 import br.bancoeveris.app.repository.ContaRepository;
-import br.bancoeveris.app.spec.ContaList;
-import br.bancoeveris.app.spec.ContaSpec;
+import br.bancoeveris.app.request.ContaList;
+import br.bancoeveris.app.request.ContaRequest;
+import br.bancoeveris.app.response.ContaResponse;
 import br.bancoeveris.app.model.BaseResponse;
 
 @Service
@@ -20,47 +23,71 @@ public class ContaService {
 		_repository = repository;
 		_operacaoService = operacaoService;
 	}
+	
+	//METODO PARA GERAR HASH
+    public String randomHash() {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrst123456789";
+        String newString= "";
+        int tamanho = 10;
+        boolean existe = true;
+        Random rand =  new Random();
+
+        while(existe) {
+
+        char[] text = new char[tamanho];
+        for(int i=0; i < tamanho; i++) {
+            text[i] = caracteres.charAt(rand.nextInt(caracteres.length()));
+        }
+        for(int i=0; i < text.length; i++ ) {
+            newString += text[i];
+        }
+
+            List<Conta> contaExiste = _repository.findByHash(newString);
+
+            if(contaExiste.size() != 0) {
+                existe = true;
+            }else
+                existe= false;
+            }
+        return newString;
+
+    }
 
 	// POST - CRIAR
-	public BaseResponse inserir(ContaSpec contaSpec) {
+	public BaseResponse inserir(ContaRequest contaRequest) {
 		Conta conta = new Conta();
 		BaseResponse base = new BaseResponse();
 		base.StatusCode = 400;
 
-		if (contaSpec.getHash().isEmpty()) {
-			base.Message = "O Hash do cliente não foi preenchido.";
-			return base;
-		}
-
-		if (contaSpec.getNome().isEmpty()) {
+		if (contaRequest.getNome().isEmpty()) {
 			base.Message = "O Nome do cliente não foi preenchido.";
 			return base;
 		}
-
-		conta.setHash(contaSpec.getHash());
-		conta.setNome(contaSpec.getNome());
+		
+		conta.setHash(randomHash());
+		conta.setNome(contaRequest.getNome());
 
 		_repository.save(conta);
 		base.StatusCode = 201;
-		base.Message = "Conta inserida com sucesso.";
+		base.Message = conta.getHash();
 		return base;
 	}
 
-	// GET - OBTER POR UM POR HASH
-	public Conta obterByHash(String hash) {
-		List<Conta> lista = _repository.findByHash(hash);
+	// GET - OBTER POR UM POR ID
+	public ContaResponse obter(Long id) {
+		Optional<Conta> obter = _repository.findById(id);
 
-		Conta response = new Conta();
+		ContaResponse response = new ContaResponse();
 
-		if (lista.isEmpty()) { // checa se lista é vazia
+		if (obter.isEmpty()) {
 			response.StatusCode = 400;
-			response.Message = "Hash code não encontrado.";
+			response.Message = "Id não encontrado.";
 			return response;
 		}
 
-		response = lista.get(0);
+		response = obter(id);
 		response.StatusCode = 200;
-		response.Message = "Hash obtido com sucesso.";
+		response.Message = "Conta obtida com sucesso.";
 		return response;
 	}
 
@@ -77,28 +104,20 @@ public class ContaService {
 		return response;
 	}
 
-	// PUT - ATUALIZAR POR HASH
-	public BaseResponse atualizar(String hash, ContaSpec contaSpec) {
+	// PUT - ATUALIZAR POR ID
+	public BaseResponse atualizar(Long id, ContaRequest contaRequest) {
 
 		BaseResponse response = new BaseResponse();
 		Conta conta = new Conta();
 		response.StatusCode = 400;
 
-		if (contaSpec.getHash().isEmpty()) {
-			response.Message = "Novo Hash do cliente não foi preenchido.";
-			return response;
-		}
-
-		if (contaSpec.getNome().isEmpty()) {
+		if (contaRequest.getNome().isEmpty()) {
 			response.Message = "Novo nome do cliente não foi preenchido.";
 			return response;
 		}
 
-		List<Conta> lista = _repository.findByHash(hash);
-
-		conta = lista.get(0);
-		conta.setNome(contaSpec.getNome());
-		conta.setHash(contaSpec.getHash());
+		conta.setId(id);
+		conta.setNome(contaRequest.getNome());
 
 		_repository.save(conta);
 		response.StatusCode = 200;
@@ -107,19 +126,17 @@ public class ContaService {
 
 	}
 
-	// DELETE - DELETAR POR HASH
-	public BaseResponse deletar(String hash) {
+	// DELETE - DELETAR POR ID
+	public BaseResponse deletar(Long id) {
 		BaseResponse response = new BaseResponse();
 
-		if (hash.isEmpty()) {
+		if (id == null) {
 			response.StatusCode = 400;
+			response.Message = "Id de conta não existe";
 			return response;
 		}
 
-		List<Conta> lista = _repository.findByHash(hash);
-
-		Conta conta = lista.get(0);
-		_repository.deleteById(conta.getId());
+		_repository.deleteById(id);
 
 		response.StatusCode = 200;
 		response.Message = "Conta Excluida com sucesso!";
@@ -129,9 +146,9 @@ public class ContaService {
 	// -----------------------------------------------------------------------------------
 
 	// SALDO
-	public Conta Saldo(String hash) {
+	public ContaResponse Saldo(String hash) {
 
-		Conta response = new Conta();
+		ContaResponse response = new ContaResponse();
 		response.StatusCode = 400;
 
 		List<Conta> lista = _repository.findByHash(hash);

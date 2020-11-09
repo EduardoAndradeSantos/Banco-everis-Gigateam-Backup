@@ -1,16 +1,16 @@
-package br.bancoeveris.app.spec;
+package br.bancoeveris.app.request;
 
-public class OperacaoSpec {
+public class OperacaoRequest {
 
-	private Double valor;
+	private double valor;
 	private String tipo;
 	private String hash;
 
-	public Double getValor() {
+	public double getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 
