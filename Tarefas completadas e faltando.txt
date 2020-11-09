@@ -24,8 +24,6 @@
 
 -Operações
 	-Exibe saldo ao digitar o Hash do cliente
-
--Faltou:
-	-Transferencia de saldo por hash (está por id)
-	-Deposito de saldo por hash (está por id)
-	-Saque de saldo por hash (está por id)
+	-Transferencia de saldo por hash 
+	-Deposito de saldo por hash
+	-Saque de saldo por hash
