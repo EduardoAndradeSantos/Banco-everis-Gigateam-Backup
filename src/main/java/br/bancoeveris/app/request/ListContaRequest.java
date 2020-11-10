@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.bancoeveris.app.model.*;
 
-public class ContaList extends BaseResponse {
+public class ListContaRequest extends BaseResponse {
 
 	// PROPRIEDADES
 	private List<Conta> Contas;

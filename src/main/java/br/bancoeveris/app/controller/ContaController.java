@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import br.bancoeveris.app.service.ContaService;
 import br.bancoeveris.app.model.BaseResponse;
 import br.bancoeveris.app.model.Conta;
-import br.bancoeveris.app.request.ContaList;
+import br.bancoeveris.app.request.ListContaRequest;
 import br.bancoeveris.app.request.ContaRequest;
 import br.bancoeveris.app.response.ContaResponse;
+import br.bancoeveris.app.response.ListContaResponse;
 
 @RestController
 @RequestMapping("/contas")
@@ -48,7 +49,7 @@ public class ContaController extends BaseController {
 	@GetMapping
 	public ResponseEntity listar() {
 		try {
-			ContaList contas = _service.listar();
+			ListContaResponse contas = _service.listar();
 			return ResponseEntity.status(contas.StatusCode).body(contas);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);

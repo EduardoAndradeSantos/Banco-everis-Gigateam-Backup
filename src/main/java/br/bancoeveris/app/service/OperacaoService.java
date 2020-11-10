@@ -1,8 +1,6 @@
 package br.bancoeveris.app.service;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.bancoeveris.app.model.BaseResponse;
@@ -20,7 +18,6 @@ public class OperacaoService {
 	final OperacaoRepository _repository;
 	final ContaRepository _contaRepository;
 
-	// @Autowired
 	public OperacaoService(OperacaoRepository repository, ContaRepository contaRepository) {
 		_repository = repository;
 		_contaRepository = contaRepository;
@@ -80,8 +77,8 @@ public class OperacaoService {
 		BaseResponse base = new BaseResponse();
 		Operacao operacao = new Operacao();
 
-		List<Conta> lista = _contaRepository.findByHash(operacaoRequest.getHash());
-		if (lista.size() == 0) {
+		Conta conta = _contaRepository.findByHash(operacaoRequest.getHash());
+		if (conta == null) {
 			base.StatusCode = 404;
 			base.Message = "Conta não encontrada";
 			return base;
@@ -92,10 +89,10 @@ public class OperacaoService {
 
 		switch (operacaoRequest.getTipo()) {
 		case "D":
-			operacao.setContaDestino(lista.get(0));
+			operacao.setContaDestino(conta);
 			break;
 		case "S":
-			operacao.setContaOrigem(lista.get(0));
+			operacao.setContaOrigem(conta);
 			break;
 		}
 
@@ -111,23 +108,23 @@ public class OperacaoService {
 		BaseResponse base = new BaseResponse();
 		Operacao operacao = new Operacao();
 
-		List<Conta> origem = _contaRepository.findByHash(transferenciaRequest.getHashOrigem());
-		List<Conta> destino = _contaRepository.findByHash(transferenciaRequest.getHashDestino());
+		Conta origem = _contaRepository.findByHash(transferenciaRequest.getHashOrigem());
+		Conta destino = _contaRepository.findByHash(transferenciaRequest.getHashDestino());
 		
-		if (origem.size() == 0) {
+		if (origem == null) {
 			base.StatusCode = 404;
 			base.Message = "Conta origem não encontrada";
 			return base;
 		}
-		if (destino.size() == 0) {
+		if (destino == null) {
 			base.StatusCode = 404;
 			base.Message = "Conta destino não encontrada";
 			return base;
 		}
 		
 		operacao.setTipo("T");
-		operacao.setContaOrigem(origem.get(0));
-		operacao.setContaDestino(destino.get(0));
+		operacao.setContaOrigem(origem);
+		operacao.setContaDestino(destino);
 		operacao.setValor(transferenciaRequest.getValor());
 
 		_repository.save(operacao);
