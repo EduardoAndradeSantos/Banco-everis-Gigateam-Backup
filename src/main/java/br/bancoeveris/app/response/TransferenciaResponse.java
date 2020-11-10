@@ -6,7 +6,8 @@ public class TransferenciaResponse extends BaseResponse {
 	private Long id;
 	private String hashOrigem;
 	private String hashDestino;
-	private double valor;
+	private Double valor;
+	
 	public Long getId() {
 		return id;
 	}
@@ -25,12 +26,11 @@ public class TransferenciaResponse extends BaseResponse {
 	public void setHashDestino(String hashDestino) {
 		this.hashDestino = hashDestino;
 	}
-	public double getValor() {
+	public Double getValor() {
 		return valor;
 	}
-	public void setValor(double valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	
-	
+		
 }

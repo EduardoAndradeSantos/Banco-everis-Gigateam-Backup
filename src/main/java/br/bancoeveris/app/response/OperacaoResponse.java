@@ -4,7 +4,7 @@ import br.bancoeveris.app.model.BaseResponse;
 
 public class OperacaoResponse extends BaseResponse{
 	private Long id;
-	private double valor;
+	private Double valor;
 	private String tipo;
 	private String hash;
 	
@@ -14,10 +14,10 @@ public class OperacaoResponse extends BaseResponse{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public double getValor() {
+	public Double getValor() {
 		return valor;
 	}
-	public void setValor(double valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 	public String getTipo() {
@@ -32,6 +32,5 @@ public class OperacaoResponse extends BaseResponse{
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
-
 	
 }

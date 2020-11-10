@@ -34,41 +34,31 @@ public class OperacaoService {
 		Conta contaDestino = new Conta();
 		contaDestino.setId(contaId);
 
-		List<Operacao> listaOrigem = _repository.findByContaOrigem(contaOrigem);
-		List<Operacao> listaDestino = _repository.findByContaDestino(contaDestino);
+		List<Operacao> lista = _repository.findOperacoesPorConta(contaId);
 
-		for (Operacao o : listaOrigem) {
-			switch (o.getTipo()) {
-			case "D":
-				saldo += o.getValor();
-				break;
-			case "S":
-				saldo -= o.getValor();
-				break;
-			case "T":
-				saldo -= o.getValor();
-				break;
-			default:
-				break;
-			}
-		}
+        for (Operacao o : lista) {
+            switch (o.getTipo()) {
+            case "D":
+                saldo += o.getValor();
+                break;
+            case "S":
+                saldo -= o.getValor();
+                break;
+            case "T":
 
-		for (Operacao o : listaDestino) {
-			switch (o.getTipo()) {
-			case "D":
-				saldo += o.getValor();
-				break;
-			case "S":
-				saldo -= o.getValor();
-				break;
-			case "T":
-				saldo += o.getValor();
-				break;
-			default:
-				break;
-			}
-		}
-		return saldo;
+                if (contaId == o.getContaOrigem().getId())
+                saldo -= o.getValor();
+
+                if (contaId == o.getContaDestino().getId())
+                    saldo += o.getValor();
+                break;
+
+            default:
+                break;
+            }
+        }
+
+        return saldo;
 	}
 
 	// OPERACAO SAQUE E DEPOSITO
