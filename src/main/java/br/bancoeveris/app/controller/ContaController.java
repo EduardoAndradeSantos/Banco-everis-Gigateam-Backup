@@ -38,8 +38,8 @@ public class ContaController extends BaseController {
 	@GetMapping(path = "/{id}")
 	public ResponseEntity obter(@PathVariable Long id) {
 		try {
-			ContaResponse contaResponse = _service.obter(id);
-			return ResponseEntity.status(contaResponse.StatusCode).body(contaResponse);
+			ContaResponse response = _service.obter(id);
+			return ResponseEntity.status(response.StatusCode).body(response);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}
@@ -49,8 +49,8 @@ public class ContaController extends BaseController {
 	@GetMapping
 	public ResponseEntity listar() {
 		try {
-			ListContaResponse contas = _service.listar();
-			return ResponseEntity.status(contas.StatusCode).body(contas);
+			ListContaResponse response = _service.listar();
+			return ResponseEntity.status(response.StatusCode).body(response);
 		} catch (Exception e) {
 			return ResponseEntity.status(errorBase.StatusCode).body(errorBase);
 		}

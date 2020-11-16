@@ -71,7 +71,7 @@ public class ContaService {
 		
 		contaResponse.StatusCode = 201;
 		contaResponse.Message = "Hash Gerado automaticamente na Conta criada!!";
-		contaResponse.setHash( conta.getHash());
+		contaResponse.setHash(conta.getHash());
 		contaResponse.setNome(conta.getNome());
 		contaResponse.setId(conta.getId());
 		
